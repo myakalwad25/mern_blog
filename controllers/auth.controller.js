@@ -5,7 +5,7 @@ import { errorHander } from "../utils/error.js";
 const signup = async(req,res,next)=>{
     const{username, email, password }=req.body;
     if(!username || !email || !password || username==="" || email ==="" ||password ==="") {
-        next(errorHander(400,"all fields are required"));
+        next(errorHandler(400,"all fields are required"));
     }
 
     const hashPassword = await bcryptjs.hash(password,10);
