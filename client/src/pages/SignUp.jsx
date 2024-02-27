@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import {Link, useNavigate} from 'react-router-dom'
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import { useState } from 'react';

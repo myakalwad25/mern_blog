@@ -1,6 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
 // import React from 'react'
 
-import { Button, Navbar, NavbarCollapse, TextInput } from "flowbite-react";
+import { Button, Navbar, TextInput } from "flowbite-react";
 import { Link , useLocation} from "react-router-dom";
 import {AiOutlineSearch} from 'react-icons/ai'
 import {FaMoon} from 'react-icons/fa'
