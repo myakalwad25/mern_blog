@@ -4,6 +4,7 @@ import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import { useState } from 'react';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import OAuth from '../components/OAuth';
 
 
 export default function SignIn() {
@@ -21,7 +22,7 @@ export default function SignIn() {
      if( !formData.email || !formData.password) {
       return dispatch(signInFailure('please fill all the fields'));
      }
-     
+
      try{
       dispatch(signInStart());
       const res = await fetch('/api/auth/signin',
@@ -84,6 +85,7 @@ export default function SignIn() {
                 :'Sign In'
               }
             </Button>
+            <OAuth></OAuth>
           </form>
           <div className='flex gap-2 text-sm mt-5'>
             <span>Don't Have an account?</span>
