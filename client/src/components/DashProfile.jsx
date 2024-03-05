@@ -53,6 +53,7 @@ export default function DashProfile() {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setImageFileUploadProgress(progress.toFixed(0));
       },
+      // eslint-disable-next-line no-unused-vars
       (error)=>{
         setImageFileUploadError("Could not upload image (file should be less than 10 mb");
         setImageFileUploadProgress(null);
