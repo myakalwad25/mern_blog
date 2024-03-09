@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 import Post from '../models/post.model.js';
+import User from '../models/user.model.js';
+
+
 import { errorHandler } from '../utils/error.js';
 
 
@@ -123,3 +126,5 @@ export const updatepost = async (req, res, next) => {
     next(error);
   }
 };
+
+
