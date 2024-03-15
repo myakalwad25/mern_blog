@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Table, Modal , ModalBody,Button} from "flowbite-react";
+import { Table, Modal , ModalBody,Button,Spinner} from "flowbite-react";
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 import { FaCheck , FaTimes} from 'react-icons/fa'
 
@@ -10,21 +10,29 @@ export default function DashUsers() {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete , setUserIdToDelete] = useState('');
-
+  const [loading , setLoading] = useState(true);
+  const [error, setError ] = useState(false);
  
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        setLoading(true);
+        
         const res = await fetch(`/api/user/getusers`);
         const data = await res.json();
         if (res.ok) {
+
           setUsers(data.users);
           if(data.users.length < 9) {
             setShowMore(false);
           }
+          setLoading(false);
+          setError(false);
         }
       } catch (error) {
+        setLoading(false);
+        setError(true);
         console.log(error.message);
       }
     };
@@ -76,6 +84,12 @@ export default function DashUsers() {
         console.log(error.message);
      }
   }
+
+  if(loading) 
+  return <div className='flex  justify-center items-center w-full'>
+        <Spinner size='xl'/>
+    </div>
+
   return (
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar
      scrollbar-track-slate-100 

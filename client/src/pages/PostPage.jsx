@@ -65,7 +65,7 @@ export default function PostPage() {
     if(loading) return <div className='flex justify-center items-center min-h-screen'>
         <Spinner size='xl'/>
     </div>
-    return <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
+    return <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen  gap-2'>
         <h1 className='text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl'>
             {post && post.title}
         </h1>

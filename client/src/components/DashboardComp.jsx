@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import { useState, useEffect } from "react"
 import { HiAnnotation, HiArrowNarrowUp, HiDocumentText, HiOutlineUserGroup } from "react-icons/hi"
 import { Link } from "react-router-dom"
-import { Button, Table } from "flowbite-react"
+import { Button, Table ,Spinner} from "flowbite-react"
 
 export default function DashboardComp() {
     const [users, setUsers ] = useState([])
@@ -14,22 +14,28 @@ export default function DashboardComp() {
     const [lastMonthUsers, setLastMonthUsers] = useState(0);
     const [lastMonthPosts, setLastMonthPosts] = useState(0);
     const [lastMonthComments, setLastMonthComments] = useState(0);
+    const [loading ,setLoading ] = useState(true);
+    const [error, setError ] = useState(false);
 
     const {currentUser } = useSelector((state)=>state.user);
     useEffect(()=>{
         const fetchUsers = async()=>{
 
             try{
-
+                setLoading(true);
                 const res = await fetch('/api/user/getUsers?limit=5');
                 const data = await res.json();
                 if(res.ok) {
                     setUsers(data.users);
                     setTotalUsers(data.totalUsers);
                     setLastMonthUsers(data.lastMonthUsers);
+                    setLoading(false);
+                    setError(false);
                 }
             }
             catch(error) {
+                setLoading(false);
+                setError(true);
                 console.log(error.message);
             }
         }
@@ -37,16 +43,20 @@ export default function DashboardComp() {
         const fetchPosts = async()=>{
 
             try{
-
+                setLoading(true);
                 const res = await fetch('/api/post/getPosts?limit=5');
                 const data = await res.json();
                 if(res.ok) {
                     setPosts(data.posts);
                     setTotalPosts(data.totalPosts);
                     setLastMonthPosts(data.lastMonthPosts);
+                    setLoading(false);
+                    setError(false);
                 }
             }
             catch(error) {
+                setLoading(false);
+                setError(true);
                 console.log(error.message);
             }
         }
@@ -54,16 +64,20 @@ export default function DashboardComp() {
         const fetchComments = async()=>{
 
             try{
-
+                setLoading(true);
                 const res = await fetch('/api/comment/getComments?limit=5');
                 const data = await res.json();
                 if(res.ok) {
                     setComments(data.comments);
                     setTotalComments(data.totalComments);
                     setLastMonthComments(data.lastMonthComments);
+                    setLoading(false);
+                    setError(false);
                 }
             }
             catch(error) {
+                setLoading(false);
+                setError(true);
                 console.log(error.message);
             }
         }
@@ -76,6 +90,10 @@ export default function DashboardComp() {
         }
         
     },[currentUser])
+
+    if(loading) return <div className='flex justify-center items-center min-h-screen w-full'>
+        <Spinner size='xl'/>
+    </div>
   return (
     <div className="p-3 md:mx-auto">
         <div className="flex-wrap flex gap-4 justify-center">
@@ -164,39 +182,7 @@ export default function DashboardComp() {
                     ))}
                 </Table>
             </div>
-            {/* posts */}
-            <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
-                <div className="flex justify-between p-3 text-sm font-semibold">
-                    <h1 className="text-center p-2">Reacent Posts</h1>
-                    <Button outline gradientDuoTone="purpleToPink">
-                        <Link to={"/dashboard?tab=posts"}>See all</Link>
-                    </Button>
-                </div>
-                <Table hoverable>
-                    <Table.Head>
-                        <Table.HeadCell> Post image</Table.HeadCell>
-                        <Table.HeadCell> Post Title</Table.HeadCell>
-                        <Table.HeadCell> Category </Table.HeadCell>
-
-
-                    </Table.Head>
-                    { posts && posts.map((post)=>(
-                        <Table.Body key={post._id} className="divided-y">
-                            <Table.Row className="bg-white dark:border-gray-700
-                            dark:bg-gray-800">
-                                <Table.Cell>
-                                    <img src={post.image}
-                                    alt='user'
-                                    className="w-14 h-10 rounded-md bg-gray-500"/>
-                                </Table.Cell>
-                                <Table.Cell className="w-90">{post.title}</Table.Cell>
-                                <Table.Cell className="w-5">{post.category}</Table.Cell>
-
-                            </Table.Row>
-                        </Table.Body>
-                    ))}
-                </Table>
-            </div>
+           
             {/* comments */}
             <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
                 <div className="flex justify-between p-3 text-sm font-semibold">
@@ -219,6 +205,39 @@ export default function DashboardComp() {
                                    <p className="line-clamp-2">{comment.content}</p>
                                 </Table.Cell>
                                 <Table.Cell>{comment.numberOfLikes}</Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    ))}
+                </Table>
+            </div>
+             {/* posts */}
+             <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
+                <div className="flex justify-between p-3 text-sm font-semibold">
+                    <h1 className="text-center p-2">Reacent Posts</h1>
+                    <Button outline gradientDuoTone="purpleToPink">
+                        <Link to={"/search"}>See all</Link>
+                    </Button>
+                </div>
+                <Table hoverable>
+                    <Table.Head>
+                        <Table.HeadCell> Post image</Table.HeadCell>
+                        <Table.HeadCell> Post Title</Table.HeadCell>
+                        <Table.HeadCell> Category </Table.HeadCell>
+
+
+                    </Table.Head>
+                    { posts && posts.map((post)=>(
+                        <Table.Body key={post._id} className="divided-y">
+                            <Table.Row className="bg-white dark:border-gray-700
+                            dark:bg-gray-800">
+                                <Table.Cell>
+                                    <img src={post.image}
+                                    alt='user'
+                                    className="w-14 h-10 rounded-md bg-gray-500"/>
+                                </Table.Cell>
+                                <Table.Cell className="w-90">{post.title}</Table.Cell>
+                                <Table.Cell className="w-5">{post.category}</Table.Cell>
+
                             </Table.Row>
                         </Table.Body>
                     ))}

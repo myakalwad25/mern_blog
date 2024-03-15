@@ -56,9 +56,9 @@ export default function Comment({ comment, onLike, onEdit , onDelete}) {
           alt={user.username}
         />
       </div>
-      <div className="flex-1">
-        <div className="flex items-center mb-1">
-          <span className="font-bond mr-1 text-xs truncate">
+      <div className="flex-1 ">
+        <div className="flex items-center mb-1 gap-3 text-gray-500">
+          <span className="font-bond mr-1 text-xs truncate ">
             {user ? `@${user.username}` : "anonymous user"}
           </span>
           <span>{moment(comment.createdAt).fromNow()}</span>
@@ -89,7 +89,7 @@ export default function Comment({ comment, onLike, onEdit , onDelete}) {
           </>
         ) : (
           <>
-            <p className="text-gray-500 pb-2">{comment.content}</p>
+            <p className=" pb-2">{comment.content}</p>
             <div className="flex items-center pt-2 text-xs border-t dark:border-gray-700 max-w-fit gap-2">
               <button
                 type="button"

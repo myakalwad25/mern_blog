@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Table, Modal , ModalBody,Button} from "flowbite-react";
+import { Table, Modal , ModalBody,Button, Spinner} from "flowbite-react";
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 import { FaCheck , FaTimes} from 'react-icons/fa'
 
@@ -10,12 +10,14 @@ export default function DashComments() {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [commentIdToDelete , setCommentIdToDelete] = useState('');
-
+  const [loading , setLoading] = useState(true);
+  const [error, setError ] = useState(false);
  
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
+        setLoading(true);
         const res = await fetch(`/api/comment/getcomments`);
         const data = await res.json();
         if (res.ok) {
@@ -23,12 +25,17 @@ export default function DashComments() {
           if(data.comments.length < 9) {
             setShowMore(false);
           }
+          setLoading(false);
+          setError(false);
         }
-        else{
-            console.log("problem")
-            console.log(res)
+        if(!res.ok) {
+          setLoading(false);
+          setError(true);
         }
+       
       } catch (error) {
+        setLoading(false);
+        setError(true);
         console.log(error.message);
       }
     };
@@ -81,6 +88,11 @@ export default function DashComments() {
         console.log(error.message);
      }
   }
+
+  if(loading) return <div className='flex justify-center items-center min-h-screen w-full'>
+  <Spinner size='xl'/>
+</div>
+
   return (
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar
      scrollbar-track-slate-100 
