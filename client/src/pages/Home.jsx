@@ -24,7 +24,7 @@ export default function Home() {
           Here you'll find a variety of articles and tutorials on topics such as web development, software engineering , and programming
         </p>
         <Link to='/search'
-        className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'> View all posts</Link>
+        className='text-xs sm:text-sm text-teal-500 font-bold hover:underline lg:text-lg'> View all posts</Link>
       </div>
       <div className="p-3 bg-amber-100 dark:bg-slate-700">
         <CallToAction/>

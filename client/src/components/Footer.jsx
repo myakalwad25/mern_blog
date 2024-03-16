@@ -23,7 +23,7 @@ export default function FooterCom() {
               <Footer.Title title="About" />
               <Footer.LinkGroup col>
                 <Footer.Link href="#" target="_blank" rel="noopener noreferrer">
-                  100 JS Projects
+                  Projects
                 </Footer.Link>
 
                 <Footer.Link href="#" target="_blank" rel="noopener noreferrer">
@@ -32,22 +32,22 @@ export default function FooterCom() {
               </Footer.LinkGroup>
             </div>
             <div>
-              <Footer.Title title="Follow Us" />
+              <Footer.Title title="Follow Me" />
               <Footer.LinkGroup col>
                 <Footer.Link
-                  href="http://github.com/vijaymyakalwad"
+                  href="https://github.com/myakalwad25"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Github
                 </Footer.Link>
-                <Footer.Link href="#" target="_blank" rel="noopener noreferrer">
-                  Discord
+                <Footer.Link href="https://www.linkedin.com/in/vijaymyakalwad/" target="_blank" rel="noopener noreferrer">
+                  LinkedIn
                 </Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>
-              <Footer.Title title="Follow Us" />
+              <Footer.Title title="Follow Me" />
               <Footer.LinkGroup col>
                 <Footer.Link href="#">Privacy Policy</Footer.Link>
                 <Footer.Link href="#">Terms &amp; Conditions</Footer.Link>
@@ -65,10 +65,10 @@ export default function FooterCom() {
           <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
           <Footer.Icon href="https://github.com/myakalwad25" icon={BsGithub}/>
           <Footer.Icon href="https://www.linkedin.com/in/vijaymyakalwad/" icon={BsLinkedin}/>
+       
+          <Footer.Icon href="https://twitter.com/vijay_myakalwad" icon={BsTwitter}/>
           <Footer.Icon href="#" icon={BsFacebook}/>
           <Footer.Icon href="#" icon={BsInstagram}/>
-          <Footer.Icon href="#" icon={BsTwitter}/>
-
           </div>
         </div>
       </div>
